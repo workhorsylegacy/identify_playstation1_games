@@ -5,6 +5,8 @@ A module for identifying Sony Playstation 1 games with Python 2 &amp; 3
 
 Works with CD ISO, and Binary files.
 
+WARNING!!!! This is project is new, and does not work yet!
+
 
 Example use:
 -----
