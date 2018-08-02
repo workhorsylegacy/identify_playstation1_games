@@ -5,7 +5,7 @@
 # A module for identifying Sony Playstation 1 games with Python 2 & 3
 # It uses a MIT style license
 # It is hosted at: https://github.com/workhorsy/identify_playstation1_games
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
 # "Software"), to deal in the Software without restriction, including
@@ -13,10 +13,10 @@
 # distribute, sublicense, and/or sell copies of the Software, and to
 # permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 # EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -66,7 +66,7 @@ PREFIXES = [
 with open('db_playstation1_official_us.json', 'rb') as f:
 	db_playstation1_official_us = json.loads(f.read().decode('utf8'))
 
-
+'''
 # Convert the keys from strings to bytes
 dbs = [
 	db_playstation1_official_us,
@@ -85,7 +85,7 @@ for db in dbs:
 			db[bytes(key)] = val
 		else:
 			db[bytes(key, 'utf-8')] = val
-
+'''
 
 def _find_in_binary(file_name):
 	f = open(file_name, 'rb')
@@ -130,14 +130,12 @@ def get_playstation1_game_info(file_name):
 	entries = []
 
 	# Look at each file in the CD ISO
-	try:
-		if not disc_type:
-			cd = iso9660.ISO9660(file_name)
-			for sub_entry in cd.tree():
-				entries.append(sub_entry.lstrip('/'))
-			disc_type = 'CD'
-	except:
-		pass
+	if not disc_type:
+		cd = iso9660.ISO9660(file_name)
+		for sub_entry in cd.tree():
+			entries.append(sub_entry.lstrip('/'))
+		print(entries)
+		disc_type = 'CD'
 
 	# Look at the entire binary
 	if not disc_type:
@@ -192,7 +190,3 @@ def get_playstation1_game_info(file_name):
 		}
 
 	raise Exception("Failed to find game in database.")
-
-
-
-		
